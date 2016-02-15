@@ -1,48 +1,52 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
-  setup do
+describe UsersController do
+  before do
     @user = users(:one)
   end
 
-  test "should get index" do
-    get users_url
-    assert_response :success
+  it "should get index" do
+    get :index
+    response.should.be.ok
   end
 
-  test "should get new" do
-    get new_user_url
-    assert_response :success
+  it "should get new" do
+    get :new
+    response.should.be.ok
   end
 
-  test "should create user" do
-    assert_difference('User.count') do
-      post users_url, params: { user: { name: @user.name } }
-    end
+  it "should create user" do
+    lambda do
+      post :create, params: { user: { name: @user.name } }
+    end.should.change('User.count', +1)
 
-    assert_redirected_to user_path(User.last)
+    response.should.be.redirect
+    response.location.should == user_url(User.last)
   end
 
-  test "should show user" do
-    get user_url(@user)
-    assert_response :success
+  it "should show user" do
+    get :show, params: { id: @user.id }
+    response.should.be.ok
   end
 
-  test "should get edit" do
-    get edit_user_url(@user)
-    assert_response :success
+  it "should get edit" do
+    get :edit, params: { id: @user.id }
+    response.should.be.ok
   end
 
-  test "should update user" do
-    patch user_url(@user), params: { user: { name: @user.name } }
-    assert_redirected_to user_path(@user)
+  it "should update user" do
+    patch :update, params: { id: @user.id, user: { name: @user.name } }
+
+    response.should.be.redirect
+    response.location.should == user_url(@user)
   end
 
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete user_url(@user)
-    end
+  it "should destroy user" do
+    lambda do
+      delete :destroy, params: { id: @user.id }
+    end.should.change('User.count', -1)
 
-    assert_redirected_to users_path
+    response.should.be.redirect
+    response.location.should == users_url
   end
 end

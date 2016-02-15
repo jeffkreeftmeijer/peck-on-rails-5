@@ -81,6 +81,9 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    peck (0.5.4)
+    peck-on-rails (0.3.0)
+      peck
     puma (2.16.0)
     rack (2.0.0.alpha)
       json
@@ -162,6 +165,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   listen (~> 3.0.5)
+  peck-on-rails
   puma
   rails (>= 5.0.0.beta2, < 5.1)
   sass-rails (~> 5.0)
